@@ -16,14 +16,10 @@ public class NodeManager : MonoBehaviour
     // Update is called once per frame
     void Start()
     {
-        List<GameObject> path = FindPaths (Objeto);
-        foreach (GameObject node in path)
-        {
-            Debug.Log(node);
-        }
+        
     }
     
-    List<GameObject> FindPaths(GameObject objeto)
+    public List<GameObject> FindPaths(GameObject objeto)
     {
         GameObject primerNodo = FindCloseNode(objeto);
         GameObject cercaObjetivo = FindCloseNode(Objetivo);
@@ -32,8 +28,9 @@ public class NodeManager : MonoBehaviour
         path.Add(primerNodo);
         paths.Add(path);
         
+        int saveCheck = 0;
 
-        while (true)
+        while (0 < 1000)
         {
             for (int y = 0; y <= paths.Count -1; y++)
             {
@@ -65,6 +62,8 @@ public class NodeManager : MonoBehaviour
                 currentPath.Add(NodosCerca[NodosCerca.Count -1]);
 
             }
+
+            saveCheck ++;
         }        
 
         return path;
