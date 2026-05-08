@@ -26,21 +26,46 @@ public class NodeManager : MonoBehaviour
     List<GameObject> FindPaths(GameObject objeto)
     {
         GameObject primerNodo = FindCloseNode(objeto);
+        GameObject cercaObjetivo = FindCloseNode(Objetivo);
         List<GameObject> path = new List<GameObject>();
+        List<List<GameObject>> paths = new List<List<GameObject>>();
         path.Add(primerNodo);
+        paths.Add(path);
+        
 
-        List<GameObject> NodosLado = primerNodo.GetComponent<Nodos>().GiveNodos();
-        path.Add(NodosLado[0]);
-
-        GameObject nodoActual = path[path.Count-1];
-
-        while (nodoActual != Objetivo)
+        while (true)
         {
-            List<GameObject> NodosCerca = nodoActual.GetComponent<Nodos>().GiveNodos();
-            path.Add(NodosCerca[0]);
+            for (int y = 0; y <= paths.Count -1; y++)
+            {
+                List<GameObject> currentPath = paths[y];
+                GameObject ultimoNodo = currentPath[currentPath.Count-1];
+                List<GameObject> NodosCerca = ultimoNodo.GetComponent<Nodos>().GiveNodos();
 
-            nodoActual = path[path.Count-1];
-        }
+                foreach (GameObject nodo in NodosCerca)
+                {
+                    if (nodo == cercaObjetivo)
+                    {
+                        currentPath.Add(nodo);
+                        return currentPath;
+                    }
+                }    
+
+                if (NodosCerca.Count > 1)
+                {
+
+                    for (int i = 0; i <= NodosCerca.Count -2; i++)
+                    {
+                        List<GameObject> newPath = new List<GameObject>(currentPath);
+                        newPath.Add(NodosCerca[i]);
+
+                        paths.Add(newPath);
+                    }
+                }
+
+                currentPath.Add(NodosCerca[NodosCerca.Count -1]);
+
+            }
+        }        
 
         return path;
     }
