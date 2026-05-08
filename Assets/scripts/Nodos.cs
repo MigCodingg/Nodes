@@ -10,9 +10,9 @@ public class Nodos : MonoBehaviour
        PositionNode = transform.position; 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   public List<GameObject> GiveNodos()
+   {
+      return NodosLado;
+   }
+
 }
